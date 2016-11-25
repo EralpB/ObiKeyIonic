@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      ObiKey
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<ng-container *ngIf="decoded">
+<button ion-button full (click)="scan()" style="margin:0 auto;height:40vw;width:40vw;border-radius:20vw;padding:0px;">SCAN</button>
+<br>
+<button ion-button block color="secondary" (click)="profile()">Manage Identities</button>
+<button ion-button block *ngIf="!locker.passwordProtected" (click)="setPassword()">Set Password</button>
+<button ion-button block *ngIf="locker.passwordProtected" (click)="setPassword()">Update Password</button>
+<button ion-button block *ngIf="locker.passwordProtected" (click)="removePassword()">Remove Password</button>
+</ng-container>
+
+<button *ngIf="!decoded" ion-button block color="warning" (click)="unlock()">Unlock</button>
+</ion-content>

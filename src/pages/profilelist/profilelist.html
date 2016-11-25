@@ -1,0 +1,21 @@
+<!--
+  Generated template for the Profilelist page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Identity List</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+<button ion-button full (click)="createIdentity()">Create New</button>
+<ion-list>
+<button *ngFor="let identity of identities" ion-item push-detail (click)="openIdentity(identity)">{{identity.title}}</button>
+</ion-list>
+</ion-content>

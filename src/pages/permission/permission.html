@@ -1,0 +1,69 @@
+<!--
+  Generated template for the Permission page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Permissions</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+<ion-card text-wrap>
+<ion-card-header style="word-wrap: break-word;">{{title}}(?) asks for following permissions:</ion-card-header>
+<ion-list>
+<ion-item *ngFor="let permission of filtered_permissions">
+    <ion-label>{{permission.name}}</ion-label>
+    <ion-checkbox [(ngModel)]="permission.checked"></ion-checkbox>
+  </ion-item>
+  </ion-list>
+</ion-card>
+
+<ion-card *ngIf="domain_identities.length > 0">
+<ion-card-header>Previously Used</ion-card-header>
+
+
+<ion-list radio-group [(ngModel)]="previousIdentityId">
+  <ion-item *ngFor="let identity of domain_identities;let first = first">
+    <ion-label>{{identity.title}}</ion-label>
+    <ion-radio value="{{identity.id}}" [disabled]="newOne"></ion-radio>
+  </ion-item>
+</ion-list>
+
+<ion-list>
+<ion-item>
+    <ion-label>Or use a new one?</ion-label>
+    <ion-toggle [(ngModel)]="newOne"></ion-toggle>
+  </ion-item>
+  </ion-list>
+</ion-card>
+
+
+<ion-card *ngIf="newOne">
+<ion-card-header>Identity Options</ion-card-header>
+<ion-list>
+<ion-item *ngIf="identities.length > 0">
+  <ion-label>Identity</ion-label>
+  <ion-select [(ngModel)]="identityId" [disabled]="generateRandom">
+    <ion-option *ngFor="let identity of identities; let first = first" value="{{identity.id}}">{{identity.title}}</ion-option>
+  </ion-select>
+</ion-item>
+<ion-item *ngIf="identities.length == 0">
+You don't have any identities
+</ion-item>
+<ion-item>
+    <ion-label>Or generate random?</ion-label>
+    <ion-toggle [(ngModel)]="generateRandom"></ion-toggle>
+  </ion-item>
+  </ion-list>
+</ion-card>
+
+
+<button ion-button full (click)="approve()" [disabled]="!this.identityId && !this.generateRandom">Approve</button>
+<button ion-button full color="danger" (click)="cancel()">Cancel</button>
+</ion-content>
