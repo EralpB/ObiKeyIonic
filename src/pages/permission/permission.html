@@ -14,28 +14,30 @@
 
 
 <ion-content no-padding>
+
 <ion-card>
 <ion-card-header>QR Code Verification</ion-card-header>
 <ion-card-content>
 
-<ion-chip *ngIf="token_verified">
-  <ion-icon name="key" color="success"></ion-icon>
+<ion-item *ngIf="token_verified">
+  <ion-icon item-left name="checkmark-circle" color="primary"></ion-icon>
   <ion-label>Token verification successful</ion-label>
-</ion-chip>
-<ion-chip *ngIf="!token_verified">
-  <ion-icon name="key" ></ion-icon>
-  <ion-label color="danger">Token not verified (Warning)</ion-label>
-</ion-chip>
+</ion-item>
 
-<ion-chip *ngIf="token_issuer">
-  <ion-icon name="at"></ion-icon>
-  <ion-label color="success">Signed by: {{token_issuer}}</ion-label>
-</ion-chip>
+<ion-item *ngIf="!token_verified">
+  <ion-icon item-left name="alert" color="danger"></ion-icon>
+  <ion-label>Token not verified (Warning)</ion-label>
+</ion-item>
 
-<ion-chip *ngIf="token_verified_email">
-  <ion-icon name="checkmark"></ion-icon>
+<ion-item *ngIf="token_issuer">
+  <ion-icon item-left name="checkmark-circle" color="primary"></ion-icon>
+  <ion-label color="success">Signed by: <b>{{token_issuer}}</b></ion-label>
+</ion-item>
+
+<ion-item *ngIf="token_verified_email">
+  <ion-icon item-left name="checkmark-circle" color="primary"></ion-icon>
   <ion-label color="success">Email verified by Google</ion-label>
-</ion-chip>
+</ion-item>
 
 </ion-card-content>
 </ion-card>

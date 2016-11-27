@@ -48,7 +48,8 @@ export class PermissionPage {
     if(token_info){
       this.token_verification(token_info);
     }
-  	this.permissions = params.get('permissions');
+
+  	this.permissions = params.get('permissions') || [];
     this.title = params.get('title');
 
     this.generateRandom = false;
@@ -77,6 +78,10 @@ export class PermissionPage {
 
   token_verification(token_info){
     if(!('aud' in token_info)){
+      this.token_verified = false;
+      return;
+    }
+    if(token_info['aud'] != "838315545909-90odb5sik65nf6qmd5t0hm0flonrvqa9.apps.googleusercontent.com"){
       this.token_verified = false;
       return;
     }
