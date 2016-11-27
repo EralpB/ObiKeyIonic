@@ -14,7 +14,9 @@
 
 
 <ion-content no-padding>
-<button ion-button full (click)="createIdentity()">Create New</button>
+<button ion-button full icon-left (click)="createIdentity()">
+<ion-icon name="person-add"></ion-icon>
+Create New</button>
 <ion-list>
 <button *ngFor="let identity of identities" ion-item push-detail (click)="openIdentity(identity)">{{identity.title}}</button>
 </ion-list>

@@ -14,8 +14,33 @@
 
 
 <ion-content no-padding>
+<ion-card>
+<ion-card-header>QR Code Verification</ion-card-header>
+<ion-card-content>
+
+<ion-chip *ngIf="token_verified">
+  <ion-icon name="key" color="success"></ion-icon>
+  <ion-label>Token verification successful</ion-label>
+</ion-chip>
+<ion-chip *ngIf="!token_verified">
+  <ion-icon name="key" ></ion-icon>
+  <ion-label color="danger">Token not verified (Warning)</ion-label>
+</ion-chip>
+
+<ion-chip *ngIf="token_issuer">
+  <ion-icon name="at"></ion-icon>
+  <ion-label color="success">Signed by: {{token_issuer}}</ion-label>
+</ion-chip>
+
+<ion-chip *ngIf="token_verified_email">
+  <ion-icon name="checkmark"></ion-icon>
+  <ion-label color="success">Email verified by Google</ion-label>
+</ion-chip>
+
+</ion-card-content>
+</ion-card>
 <ion-card text-wrap>
-<ion-card-header style="word-wrap: break-word;">{{title}}(?) asks for following permissions:</ion-card-header>
+<ion-card-header style="word-wrap: break-word;">{{title}}(?) asks for following <br>permissions:</ion-card-header>
 <ion-list>
 <ion-item *ngFor="let permission of filtered_permissions">
     <ion-label>{{permission.name}}</ion-label>

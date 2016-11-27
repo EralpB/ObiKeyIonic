@@ -177,6 +177,7 @@ export class Profilelocker {
 	    for( var i=0; i < length; i++ ){
 	        text += possible.charAt(Math.floor(Math.random() * possible.length));
 	    }
+	    
 	    if(!text.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#@$])[0-9a-zA-Z!#@$]{8,}$/)){
 	      return this.randomPassword();
 	    }

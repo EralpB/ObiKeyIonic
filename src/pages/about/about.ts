@@ -4,6 +4,7 @@ import { NavController, ModalController, LoadingController, AlertController } fr
 import {Http, URLSearchParams, RequestOptions, Headers} from '@angular/http';
 import { PermissionPage } from '../permission/permission';
 import { ProfilelistPage } from '../profilelist/profilelist';
+import { HowtousePage } from '../howtouse/howtouse';
 import 'rxjs/add/operator/map';
 import * as aesjs from 'aes-js';
 import * as jssha from 'jssha';
@@ -30,6 +31,10 @@ export class AboutPage {
   });
 
   this.myLoading.present();
+}
+
+howToUse(){
+  this.navCtrl.push(HowtousePage);
 }
 
 handleURL(url, page){
@@ -214,15 +219,46 @@ dismissLoading(){
 	});
   }
 
+
   incomingRequestJSON(qr_data){
     var page = this;
-    let permModal = page.modalCtrl.create(PermissionPage, {title:qr_data['title'], permissions:qr_data["permissions"]});
+
+    if('t' in qr_data){
+
+      let params: URLSearchParams = new URLSearchParams();
+      params.set('access_token', qr_data['t']);
+      
+      this.http.get("https://www.googleapis.com/oauth2/v3/tokeninfo", {search: params}).map(res => res.json()).subscribe(data => {
+          console.log(data);
+          page.showPermissionPage(qr_data, data);
+      },
+      err => {
+        console.log(err);
+          console.log("Oops!");
+            let alert = page.alertCtrl.create({
+            title: 'Error',
+            subTitle: 'There was an error with authorizing the token, please try again.',
+            buttons: ['Dismiss']
+          });
+          alert.present();
+      });
+
+  }
+  else{
+    page.showPermissionPage(qr_data, undefined);
+  }
+    
+  }
+
+  showPermissionPage(qr_data, token_info){
+    var page = this;
+    let permModal = page.modalCtrl.create(PermissionPage, {title:qr_data['title'], permissions:qr_data["permissions"], token_info:token_info});
     permModal.onDidDismiss(data => {
        if(data["approved"]){
         page.submitData(qr_data['listenId'], qr_data['key'], data["approved_permissions"], data['identity']);
        }
      });
-      permModal.present();
+     permModal.present();
   }
 
 
@@ -320,10 +356,13 @@ encryptWithPassword(password){
    	}
     console.log("myjson:"+JSON.stringify(myjson));
 
-   	var key = new Uint8Array(32);
-   	for(var i =0;i<32;i++){
-   		key[i] = qr_key[i];
-   	}
+   	// var key = new Uint8Array(32);
+   	// for(var i =0;i<32;i++){
+   	// 	key[i] = qr_key[i];
+   	// }
+
+   var key = aesjs.util.convertStringToBytes(qr_key, 'HEX');
+   console.log(key);
 
 	let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });

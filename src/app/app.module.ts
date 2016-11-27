@@ -9,6 +9,7 @@ import { PermissionPage } from '../pages/permission/permission';
 import { ProfilePage } from '../pages/profile/profile';
 import { ProfilelistPage } from '../pages/profilelist/profilelist';
 import { Profilelocker } from '../providers/profilelocker';
+import { HowtousePage } from '../pages/howtouse/howtouse';
 import { Storage } from '@ionic/storage';
 
 @NgModule({
@@ -20,7 +21,8 @@ import { Storage } from '@ionic/storage';
     TabsPage,
     PermissionPage,
     ProfilePage,
-    ProfilelistPage
+    ProfilelistPage,
+    HowtousePage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -34,7 +36,8 @@ import { Storage } from '@ionic/storage';
     TabsPage,
     PermissionPage,
     ProfilePage,
-    ProfilelistPage
+    ProfilelistPage,
+    HowtousePage
   ],
   providers: [Storage, Profilelocker, {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

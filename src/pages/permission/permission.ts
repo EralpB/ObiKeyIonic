@@ -21,6 +21,10 @@ export class PermissionPage {
   identity : any;
   title : any;
 
+  token_verified : boolean;
+  token_issuer : any;
+  token_verified_email : boolean;
+
 
   generateRandom :boolean;
   identityId : any;
@@ -36,7 +40,14 @@ export class PermissionPage {
 
   	this.allowed_permissions = ["email", "password"];
   	this.filtered_permissions = [];
-    
+
+    var token_info = params.get('token_info');
+    this.token_verified = false;
+    this.token_issuer = false;
+    this.token_verified_email = false;
+    if(token_info){
+      this.token_verification(token_info);
+    }
   	this.permissions = params.get('permissions');
     this.title = params.get('title');
 
@@ -62,6 +73,20 @@ export class PermissionPage {
   		}
   	}
   	console.log(this.filtered_permissions);
+  }
+
+  token_verification(token_info){
+    if(!('aud' in token_info)){
+      this.token_verified = false;
+      return;
+    }
+    this.token_verified = true;
+    if('email' in token_info){
+      this.token_issuer = token_info['email']
+    }
+    if('email_verified' in token_info){
+      this.token_verified_email = true;
+    }
   }
 
   approve(){
