@@ -26,7 +26,7 @@
 
 <ion-item *ngIf="!token_verified">
   <ion-icon item-left name="alert" color="danger"></ion-icon>
-  <ion-label>Token not verified (Warning)</ion-label>
+  <ion-label>Token not signed</ion-label>
 </ion-item>
 
 <ion-item *ngIf="token_issuer">
@@ -42,7 +42,7 @@
 </ion-card-content>
 </ion-card>
 <ion-card text-wrap>
-<ion-card-header style="word-wrap: break-word;">{{title}}(?) asks for following <br>permissions:</ion-card-header>
+<ion-card-header style="word-wrap: break-word;">{{title}}<span *ngIf="!token_verified">(?)</span> asks for following <br>permissions:</ion-card-header>
 <ion-list>
 <ion-item *ngFor="let permission of filtered_permissions">
     <ion-label>{{permission.name}}</ion-label>
