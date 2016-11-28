@@ -147,6 +147,17 @@ export class PermissionPage {
   	this.viewCtrl.dismiss({approved: false});
   }
 
+  checkedPermissionCount(){
+    if(!this.filtered_permissions){return 0;}
+    var count = 0;
+    for(var i =0;i<this.filtered_permissions.length;i++){
+      if(this.filtered_permissions[i].checked){
+        count++;
+      }
+    }
+    return count;
+  }
+
   ionViewDidLoad() {
     console.log('Hello PermissionPage Page');
   }

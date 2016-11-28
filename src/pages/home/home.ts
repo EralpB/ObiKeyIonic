@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BarcodeScanner } from 'ionic-native';
-import { NavController, ModalController, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, ModalController, LoadingController, AlertController, ToastController } from 'ionic-angular';
 import {Http, URLSearchParams, RequestOptions, Headers} from '@angular/http';
 import { PermissionPage } from '../permission/permission';
 import { ProfilelistPage } from '../profilelist/profilelist';
@@ -82,7 +82,7 @@ dismissLoading(){
 	}
 }
 
-  constructor(private locker : Profilelocker, private alertCtrl: AlertController, private http: Http, public navCtrl: NavController, private modalCtrl : ModalController, public loadingCtrl: LoadingController) {
+  constructor(private toastCtrl : ToastController, private locker : Profilelocker, private alertCtrl: AlertController, private http: Http, public navCtrl: NavController, private modalCtrl : ModalController, public loadingCtrl: LoadingController) {
   	this.ip = "52.59.25.79:80";
   	this.decoded = false;
   	this.readyToDecode = false;
@@ -209,12 +209,11 @@ dismissLoading(){
 
 	}, (err) => {
 
-		let alert = page.alertCtrl.create({
-		    title: 'Error',
-		    subTitle: 'There was an error with QR reading, please try again.',
-		    buttons: ['Dismiss']
-		  });
-		  alert.present();
+		let toast = page.toastCtrl.create({
+      message: 'There was an error with QR scanner, please try again.',
+      duration: 3000
+    });
+    toast.present();
 	});
   }
 
