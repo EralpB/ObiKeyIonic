@@ -37,7 +37,15 @@
     "cordova-plugin-statusbar",
     "cordova-plugin-device",
     "cordova-plugin-splashscreen",
-    "ionic-plugin-keyboard"
+    "ionic-plugin-keyboard",
+    "phonegap-plugin-barcodescanner",
+    {
+      "id": "cordova-plugin-customurlscheme",
+      "locator": "cordova-plugin-customurlscheme",
+      "variables": {
+        "URL_SCHEME": "obikey"
+      }
+    }
   ],
   "cordovaPlatforms": [
     "ios",
